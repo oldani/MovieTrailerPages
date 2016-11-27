@@ -14,14 +14,18 @@
             position: relative;
         }
         .jumbotron {
-            background-image: url('images/night.jpg');
+            background-image: url('https://images.unsplash.com/photo-1464897202529-674b62373651');
             background-size: cover;
         }
         #about {
             margin-top: 55px;
         }
-        .card-deck {
-            margin-top: 55px;
+        .description {
+            margin:50px 0 70px 0;
+        }
+        .card-columns .card {
+            width: 300px;
+            margin-top: 30px;
         }
         .footer {
             background-color: #00FFFF;
@@ -89,6 +93,11 @@
                             Movies
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#footer" class="nav-link">
+                            About
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -97,55 +106,52 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container-fluid text-xs-center">
 
-                <h1 class="display-3">Movies trailer Site!</h1>
+                <h1 class="display-3">Movies Trailer Site</h1>
                 <p class="lead">
                     Here you're going to fine ths most popular movies!
                 </p>
                 <hr class="my-2">
-                <p> Want to see more? Just scroll down!</p>
+                <p> Want to see more? Just scroll down</p>
             </div>
         </div>
     </section>
     <div class="container-fluid">
         <section id="about">
             <div class="row">
-                <div class="col-xs-12 text-xs-center">
+                <div class="col-xs-12 text-xs-center description">
                     <h1>Most Popular Movies!</h1>
                     <p class="lead">Summary, once again, of your app's awesomeness</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 ">
-                    <div class="card-deck-wrapper">
-                        <div class="card-deck">
-                            <!-- First Card -->
-                            <div class="col-xs-4">
-                                <div class="card">
-                                    <img class="card-img-top img-fluid" src="images/san-francisco.jpg">
-                                    <div class="card-block">
-                                        <h4 class="card-title">
-                                            MOvie title
-                                        </h4>
-                                        <p class="card-text">
-                                            Movie Description
-                                        </p>
-                                        <a href="#" class="btn btn-primary movie-trailer" data-trailer-youtube-id="PqTILYUNU3s" data-toggle="modal" data-target="#trailer">View Trailer</a>
-                                    </div>
+                <div class="col-xs-11 offset-xs-1 ">
+                    <div class="card-columns">
+                        {% for movie in movies %}
+                        <!-- Card -->
+                            <div class="card">
+                                <img class="card-img-top img-fluid" src="https://image.tmdb.org/t/p/w300_and_h450_bestv2{{movie.image_url}}">
+                                <div class="card-block">
+                                    <h4 class="card-title">
+                                        {{movie.title}}
+                                    </h4>
+                                    <p class="card-text">
+                                        {{movie.description}}
+                                    </p>
+                                    <a href="#" class="btn btn-primary movie-trailer" data-trailer-youtube-id="{{movie.trailer_id}}" data-toggle="modal" data-target="#trailer">View Trailer</a>
                                 </div>
                             </div>
-                            <!-- Finish First Card -->
-                        </div>
-                        <!-- Fisnish Card Dek -->
+                        <!-- Finish Card -->
+                        {% endfor %}
                     </div>
-                    <!-- Finish card dek wrapper -->
                 </div>
 
             </div>
         </section>
     </div>
-    <footer class="footer text-xs-center" id="download">
+    <footer class="footer text-xs-center" id="footer">
         <h1>Build by Ordanis Sanchez!</h1>
         <p class="lead">Project part of my Full Stack Nanodegree Program!</p>
+        <p class="blockquote">All the data here is power by The TMDb API</p>
     </footer>
 
     <!-- Bootstrap JS -->
@@ -171,12 +177,6 @@
               'frameborder': 0
             }));
         });
-        // Animate in the movies when the page loads
-        // $(document).ready(function () {
-        //   $('.movie-tile').hide().first().show("fast", function showNext() {
-        //     $(this).next("div").show("fast", showNext);
-        //   });
-        // });
     </script>
 
 </body>
